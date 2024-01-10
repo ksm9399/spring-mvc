@@ -6,6 +6,9 @@ import hello.hellospring.repository.MemoryMemberRepository;
 
 import java.util.*;
 
+import org.springframework.stereotype.Service;
+
+@Service
 public class MemberService {
 
   private final MemberRepository memberRepository;
