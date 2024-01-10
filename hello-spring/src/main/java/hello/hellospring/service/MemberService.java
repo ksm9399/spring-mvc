@@ -2,18 +2,17 @@ package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
-import hello.hellospring.repository.MemoryMemberRepository;
 
 import java.util.*;
 
 import org.springframework.stereotype.Service;
 
-@Service
+// @Service
 public class MemberService {
 
   private final MemberRepository memberRepository;
 
-  public MemberService(MemoryMemberRepository memberRepository) {
+  public MemberService(MemberRepository memberRepository) {
     this.memberRepository = memberRepository;
   }
 
