@@ -28,6 +28,7 @@ public class MemberController {
    */
   public MemberController(MemberService memberService) {
     this.memberService = memberService;
+    System.out.println("MemberService = " + memberService);
   }
 
   @GetMapping("/members/new")
