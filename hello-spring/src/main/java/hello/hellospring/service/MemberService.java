@@ -2,6 +2,7 @@ package hello.hellospring.service;
 
 import hello.hellospring.domain.Member;
 import hello.hellospring.repository.MemberRepository;
+import jakarta.transaction.Transactional;
 
 import java.util.*;
 
@@ -19,6 +20,7 @@ public class MemberService {
   /*
    * 회원 가입
    */
+  @Transactional
   public Long join(Member member) {
 
     // 중복 회원 검증
