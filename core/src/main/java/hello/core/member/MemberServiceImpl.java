@@ -15,7 +15,14 @@ package hello.core.member;
 public class MemberServiceImpl implements MemberService {
 
   // 의존관계가 인터페이스 뿐만 아니라 구현까지 모두 의존하는 문제점이 있음, (MemberRepository - 인터페이스, MemoryMemberRepository - 구현체)
-  private final MemberRepository memberRepository = new MemoryMemberRepository();
+  // private final MemberRepository memberRepository = new MemoryMemberRepository();
+
+  // AppConfig 파일을 통해 외부에서 의존성을 주입해주기 때문에 DIP원칙 지킴 - 인터페이스에만 의존
+  private final MemberRepository memberRepository;
+
+  public MemberServiceImpl(MemberRepository memberRepository) {
+    this.memberRepository = memberRepository;
+  }
 
   @Override
   public void join(Member member) {
