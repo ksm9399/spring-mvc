@@ -16,9 +16,9 @@ import hello.core.order.OrderServiceImpl;
 /*
  * 구현 객체를 생성하고, 연결하는 책임을 가지는 별도의 설정 클래스 생성
  * AppConfig는 애플리케이션의 실제 동작에 필요한 구현 객체를 생성, 생성한 객체 인스턴스의 참조(레퍼런스)를 생성자를 통해서 주입(연결)
- * 객체를 생성하고 연결하는 역할(AppConfig는)과, 실행하는 역할(MemberServiceImpl, OrderServiceImpl 등) 분리
+ * 객체를 생성하고 연결하는 역할(AppConfig)과, 실행하는 역할(MemberServiceImpl, OrderServiceImpl 등) 분리
  */
-@Configuration
+@Configuration  // - 주석처리시 AppConfig가 CGLIB 기술 없이 순수한 AppConfig로 스프링 빈에 등록 됨
 public class AppConfig {
 
   // MemoryMemberRepository() 이 부분이 중복 제거
