@@ -1,8 +1,12 @@
 package hello.core;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+
+import hello.core.member.MemberRepository;
+import hello.core.member.MemoryMemberRepository;
 
 @Configuration
 /*
@@ -17,5 +21,12 @@ import org.springframework.context.annotation.FilterType;
 @ComponentScan(excludeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = Configuration.class))
 public class AutoAppConfig {
 
-
+  /*
+   * 중복 빈 등록
+   * 수동 빈 등록시 - 수동 빈이 자동 빈을 오버라이딩 해버린다.(수동 빈 등록이 우선권을 가짐)
+   */
+  @Bean("memoryMemberRepository")
+  public MemberRepository memberRepository() {
+    return new MemoryMemberRepository();
+  }
 }
