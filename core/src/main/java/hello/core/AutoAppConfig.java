@@ -25,8 +25,10 @@ public class AutoAppConfig {
    * 중복 빈 등록
    * 수동 빈 등록시 - 수동 빈이 자동 빈을 오버라이딩 해버린다.(수동 빈 등록이 우선권을 가짐)
    */
-  @Bean("memoryMemberRepository")
-  public MemberRepository memberRepository() {
-    return new MemoryMemberRepository();
-  }
+
+  // 테스트 코드 실행시 contextLoads()에서 BeanDefinitionOverrideException 에러 발생해서 주석 처리
+  // @Bean("memoryMemberRepository")
+  // public MemberRepository memberRepository() {
+  //   return new MemoryMemberRepository();
+  // }
 }
