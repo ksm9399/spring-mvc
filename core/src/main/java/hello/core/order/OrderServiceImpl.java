@@ -1,6 +1,7 @@
 package hello.core.order;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import hello.core.discount.DiscountPolicy;
@@ -12,7 +13,7 @@ import hello.core.member.MemoryMemberRepository;
 import lombok.RequiredArgsConstructor;
 
 @Component
-@RequiredArgsConstructor  // final이 붙은 필드를 모아서 생성자를 만들어줌
+// @RequiredArgsConstructor  // final이 붙은 필드를 모아서 생성자를 만들어줌
 public class OrderServiceImpl implements OrderService {
 
   /*
@@ -28,10 +29,21 @@ public class OrderServiceImpl implements OrderService {
   private final MemberRepository memberRepository;
   private final DiscountPolicy discountPolicy;
 
-  // public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+  // @Autowired  // 타입 매칭의 결과가 2개 이상일 때 필드 명, 파라미터 명으로 빈 이름 매칭
+  // public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy rateDiscountPolicy) {
+  //   this.memberRepository = memberRepository;
+  //   this.discountPolicy = rateDiscountPolicy;
+  // }
+
+  // public OrderServiceImpl(MemberRepository memberRepository, @Qualifier("mainDiscountPolicy") DiscountPolicy discountPolicy) {
   //   this.memberRepository = memberRepository;
   //   this.discountPolicy = discountPolicy;
   // }
+
+  public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    this.memberRepository = memberRepository;
+    this.discountPolicy = discountPolicy;
+  }
 
   @Override
   public Order createOrder(Long memberId, String itemName, int itemPrice) {
