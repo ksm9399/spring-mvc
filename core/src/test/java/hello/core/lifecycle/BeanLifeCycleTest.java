@@ -31,7 +31,8 @@ public class BeanLifeCycleTest {
      * 스프링 빈이 스프링 코드에 의존하지 않는다
      * 코드가 아니라 설정 정보를 사용하기 때문에 코드를 고칠 수 없는 외부 라이브러리에도 초기화, 종료 메서드를 적용할 수 있다.
      */
-    @Bean(initMethod = "init", destroyMethod = "close")
+    // @Bean(initMethod = "init", destroyMethod = "close")
+    @Bean
     public NetworkClient networkClient() {
       NetworkClient networkClient = new NetworkClient();  // 객체를 생성하는 단계에 url이 없다. 그래서 콘솔 출력시 null값이 뜸
       networkClient.setUrl("http://hello-spring.dev");

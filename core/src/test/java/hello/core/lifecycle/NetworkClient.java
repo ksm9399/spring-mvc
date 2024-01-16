@@ -1,5 +1,8 @@
 package hello.core.lifecycle;
 
+import jakarta.annotation.PostConstruct;
+import jakarta.annotation.PreDestroy;
+
 /*
  * InitializingBean, DisposableBean 단점
  * 스프링 전용 인터페이스다. 해당 코드가 스프링 전용 인터페이스에 의존
@@ -32,7 +35,19 @@ public class NetworkClient {
     System.out.println("close = " + url);
   }
 
+  /*
+   * @PostConstruct, @PreDestroy 애노테이션 특징
+   * 최신 스프링에서 가장 권장하는 방법
+   * 애노테이션 하나만 붙이면 되므로 매우 편리
+   * 스프링에 종속적인 기술이 아니라 자바 표준이다.
+   * 컴포넌트 스캔과 잘 어울린다.
+   *
+   * 유일한 단점은 외부 라이브러리에는 적용하지 못한다는 것
+   * 코드를 고칠 수 없는 외부 라이브러리를 초기화, 종료해야 하면 @Bean 의 initMethod , destroyMethod를 사용
+   */
+
   // 의존 관계 주입이 끝나면 호출해 줌
+  @PostConstruct
   public void init() throws Exception {
     System.out.println("NetworkClient.init()");
     connect();
@@ -40,6 +55,7 @@ public class NetworkClient {
   }
 
   // 빈이 종료될때 호출 됨
+  @PreDestroy
   public void close() throws Exception {
     System.out.println("NetworkClient.close()");
     disconnect();
