@@ -2,11 +2,14 @@ package hello.core.scope;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.ObjectProvider;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import jakarta.inject.Provider;
 
 public class SingletonWithPrototypeTest1 {
 
@@ -40,7 +43,7 @@ public class SingletonWithPrototypeTest1 {
 
     ClientBean clientBean2 = ac.getBean(ClientBean.class);
     int count2 = clientBean2.logic();
-    Assertions.assertThat(count2).isEqualTo(2);
+    Assertions.assertThat(count2).isEqualTo(1);
 
     // 클라이언트 빈에서 프로토타입을 주입받음
     // 주입받은 시점에 프로토타입의 빈이 이미 생성되어있음
@@ -74,17 +77,31 @@ public class SingletonWithPrototypeTest1 {
 
   @Scope("singleton")
   static class ClientBean {
-    private final PrototypeBean prototypeBean;  // 생성시점에 이미 주입됨
+    // private final PrototypeBean prototypeBean;  // 생성시점에 이미 주입됨
 
-    public ClientBean(PrototypeBean prototypeBean) {
-      this.prototypeBean = prototypeBean;
-    }
+    @Autowired
+    // private ObjectProvider<PrototypeBean> prototypeBeanProvider;
+    private Provider<PrototypeBean> provider;
+
+    // public ClientBean(PrototypeBean prototypeBean) {
+    //   this.prototypeBean = prototypeBean;
+    // }
 
     public int logic() {
+      // prototypeBean.addCount();
+      // int count = prototypeBean.getCount();
+      // return count;
+
+      //  Dependency Lookup(DL) - 의존관계 조회(탐색)
+
+      // PrototypeBean prototypeBean = prototypeBeanProvider.getObject();
+      // prototypeBean.addCount();
+      // int count = prototypeBean.getCount();
+      // return count;
+
+      PrototypeBean prototypeBean = provider.get();
       prototypeBean.addCount();
-
       int count = prototypeBean.getCount();
-
       return count;
     }
   }
