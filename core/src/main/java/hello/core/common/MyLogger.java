@@ -3,13 +3,17 @@ package hello.core.common;
 import java.util.UUID;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 
 @Component
-@Scope(value = "request")
+// ScopedProxyMode.TARGET_CLASS 적용 대상이 인터페이스가 아닌 클래스면 TARGET_CLASS
+// ScopedProxyMode.INTERFACES 적용 대상이 인터페이스면 INTERFACES 를 선택
+// CGLIB라는 라이브러리로 MyLogger의 가짜 프록시 클래스를 만들어두고 HTTP request와 상관 없이 가짜 프록시 클래스를 다른 빈에 미리 주입
+@Scope(value = "request", proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class MyLogger {
 
   private String uuid;
