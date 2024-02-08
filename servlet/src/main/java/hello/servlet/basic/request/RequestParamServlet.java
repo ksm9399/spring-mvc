@@ -17,6 +17,8 @@ public class RequestParamServlet extends HttpServlet {
     HttpServletResponse response
   ) throws ServletException, IOException {
 
+    // request.getParameter() 는 GET URL 쿼리 파라미터 형식도 지원하고, POST HTML Form 형식도 둘 다 지원
+
     System.out.println("[전체 파라미터 조회] - start");
 
     request.getParameterNames().asIterator()
