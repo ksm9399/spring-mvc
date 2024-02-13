@@ -30,7 +30,7 @@ public class FrontControllerServletV2 extends HttpServlet {
     HttpServletRequest request,
     HttpServletResponse response
   ) throws ServletException, IOException {
-    System.out.println("FrontControllerServletV1.service");
+    System.out.println("FrontControllerServletV2.service");
 
     String requestURI = request.getRequestURI();
 

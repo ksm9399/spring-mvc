@@ -1,6 +1,7 @@
 package hello.servlet.web.frontcontroller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -21,5 +22,22 @@ public class MyView {
   ) throws ServletException, IOException {
     RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
     dispatcher.forward(request, response);
+  }
+
+  public void rander(
+    Map<String, Object> model,
+    HttpServletRequest request,
+    HttpServletResponse response
+  ) throws ServletException, IOException {
+    modelToRequestAttribute(model, request);
+    RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
+    dispatcher.forward(request, response);
+  }
+
+  void modelToRequestAttribute(
+    Map<String, Object> model,
+    HttpServletRequest request
+  ) {
+    model.forEach((key, value) -> request.setAttribute(key, value));
   }
 }
