@@ -49,7 +49,7 @@ public class FrontControllerServletV3 extends HttpServlet {
     String viewName = mv.getViewName();
     MyView view = viewResolver(viewName);
 
-    view.rander(mv.getModal(), request, response);
+    view.rander(mv.getModel(), request, response);
   }
 
   Map<String, String> createParamMap(HttpServletRequest request) {

@@ -6,7 +6,7 @@ import java.util.Map;
 public class ModelView {
 
   private String viewName;
-  private Map<String, Object> modal = new HashMap<>();
+  private Map<String, Object> model = new HashMap<>();
 
   public ModelView(String viewName) {
     this.viewName = viewName;
@@ -19,10 +19,10 @@ public class ModelView {
     this.viewName = viewName;
   }
 
-  public Map<String, Object> getModal() {
-    return modal;
+  public Map<String, Object> getModel() {
+    return model;
   }
-  public void setModal(Map<String, Object> modal) {
-    this.modal = modal;
+  public void setModel(Map<String, Object> model) {
+    this.model = model;
   }
 }
