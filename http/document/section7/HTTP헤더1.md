@@ -123,3 +123,115 @@
 > - 응답에서 사용
 
 ---
+
+### `특별한 정보`
+
+> `특별한 정보`
+> - Host: 요청한 호스트 정보(도메인) - 필수
+> - Location: 페이지 리다이렉션
+> - Allow: 허용 가능한 HTTP 메서드
+> - Retry-After: 유저 에이전트가 다음 요청을 하기까지 기다려야 하는 시간
+
+> `Host(요청한 호스트 정보 - 도메인)`
+> - 요청에서 사용, 필수!
+> - 하나의 서버가 여러 도메인을 처리해야 할 때
+> - 하나의 IP 주소에 여러 도메인이 적용되어 있을 때
+
+> `Location(페이지 리다이렉션)`
+> - 웹 브라우저는 3xx 응답의 결과에 Location 헤더가 있으면, Location 위치로 자동 이동(리다이렉트)
+> - 응답코드 3xx에서 설명
+> - 201 (Created): Location 값은 요청에 의해 생성된 리소스 URI
+> - 3xx (Redirection): Location 값은 요청을 자동으로 리디렉션하기 위한 대상 리소스를 가리킴
+
+> `Allow(허용 가능한 HTTP 메서드)`
+> - 405 (Method Not Allowed) 에서 응답에 포함해야함
+> - Allow: GET, HEAD, PUT
+
+> `Retry-After(유저 에이전트가 다음 요청을 하기까지 기다려야 하는 시간)`
+> - 503 (Service Unavailable): 서비스가 언제까지 불능인지 알려줄 수 있음
+> - Retry-After: Fri, 31 Dec 1999 23:59:59 GMT (날짜 표기)
+> - Retry-After: 120 (초단위 표기)
+
+---
+
+### `인증`
+
+> `인증`
+> - Authorization: 클라이언트 인증 정보를 서버에 전달
+> - WWW-Authenticate: 리소스 접근시 필요한 인증 방법 정의
+
+> `Authorization(클라이언트의 인증 정보를 서버에 전달)`
+> - Authorization: Basic xxxxxxxxxxxxxxxx
+
+> `WWW-Authenticate(리소스 접근시 필요한 인증 방법 정의)`
+> - 리소스 접근시 필요한 인증 방법 정의
+> - 401 Unauthorized 응답과 함께 사용
+> - WWW-Authenticate: Newauth realm="apps", type=1, title="Login to \"apps\"", Basic realm="simple"
+
+---
+
+### `쿠키`
+
+> `쿠키`
+> - Set-Cookie: 서버에서 클라이언트로 쿠키 전달(응답)
+> - Cookie: 클라이언트가 서버에서 받은 쿠키를 저장하고, HTTP 요청시 서버로 전달
+
+> `쿠키 미사용`
+> - 로그인시 유저에 대한 정보를 보냄
+> - 페이지 이동시 -> 로그인된 유저의 정보를 모름
+
+> `Stateless(무상태)`
+> - HTTP는 무상태(Stateless) 프로토콜이다.
+> - 클라이언트와 서버가 요청과 응답을 주고 받으면 연결이 끊어진다.
+> - 클라이언트가 다시 요청하면 서버는 이전 요청을 기억하지 못한다
+> - 클라이언트와 서버는 서로 상태를 유지하지 않는다
+
+> `쿠키 사용`
+> - Set-Cookie헤더 정보로 넘오온 유저 정보를 쿠키 저장소에 저장
+> - 페이지 이동시 쿠키 저장소의 값을 가지고 유저를 판별
+> - 사용자 로그인 세션 관리, 광고 정보 트래킹
+> - 쿠키 정보는 항상 서버에 전송
+> - 최소한의 정보만 사용(세션 id, 인증 토큰)
+> - 서버에 전송하지 않고, 웹 브라우저 내부에 데이터를 저장하고 싶으면 웹 스토리지 (localStorage, sessionStorage) 참고
+> - 보안에 민감한 데이터는 저장하면 안됨(주민번호, 신용카드 번호 등등)
+
+> `쿠키 - 생명주기(Expires, max-age)`
+> - Set-Cookie: expires=Sat, 26-Dec-2020 04:39:21 GMT
+>   - 만료일이 되면 쿠키 삭제
+> - Set-Cookie: max-age=3600 (3600초)
+>   - 0이나 음수를 지정하면 쿠키 삭제
+> - 세션 쿠키: 만료 날짜를 생략하면 브라우저 종료시 까지만 유지
+> - 영속 쿠키: 만료 날짜를 입력하면 해당 날짜까지 유지
+
+> `쿠키 - 도메인(Domain)`
+> - ex) domain=example.org
+> - 명시: 명시한 문서 기준 도메인 + 서브 도메인 포함
+>   - domain=example.org를 지정해서 쿠키 생성
+>   - example.org는 물론이고
+>   - dev.example.org도 쿠키 접근
+> - 생략: 현재 문서 기준 도메인만 적용
+>   - example.org 에서 쿠키를 생성하고 domain 지정을 생략
+>     - example.org 에서만 쿠키 접근
+>     - dev.example.org는 쿠키 미접근
+
+> `쿠키 - 경로(Path)`
+> - ex) path=/home
+> - 이 경로를 포함한 하위 경로 페이지만 쿠키 접근
+> - 일반적으로 path=/ 루트로 지정
+> ex) path=/home 지정
+>   - /home -> 가능
+>   - /home/level1 -> 가능
+>   - /home/level1/level2 -> 가능
+>   - /hello -> 불가능
+
+> `쿠키 - 보안(Secure, HttpOnly, SameSite)`
+> - Secure
+>   - 쿠키는 http, https를 구분하지 않고 전송
+>   - Secure를 적용하면 https인 경우에만 전송
+> - HttpOnly
+>   - XSS 공격 방지
+>   - 자바스크립트에서 접근 불가(document.cookie
+>   - HTTP 전송에만 사용
+> - SameSite
+>   - XSRF 공격 방지
+>   - 요청 도메인과 쿠키에 설정된 도메인이 같은 경우만 쿠키 전송
