@@ -1,7 +1,6 @@
 package hello.servlet.web.frontcontroller.v2.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import hello.servlet.domain.member.Member;

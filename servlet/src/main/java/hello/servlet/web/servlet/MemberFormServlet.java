@@ -3,7 +3,6 @@ package hello.servlet.web.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import hello.servlet.domain.member.MemberRepository;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -12,8 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet(name = "memberFormServlet", urlPatterns = "/servlet/members/new-form")
 public class MemberFormServlet extends HttpServlet {
-
-  private MemberRepository memberRepository = MemberRepository.getInstance();
 
   @Override
   protected void service(
