@@ -3,6 +3,9 @@ package hello.servlet;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.servlet.ViewResolver;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 @SpringBootApplication
 @ServletComponentScan	// 서블릿 자동 등록
@@ -12,5 +15,10 @@ public class ServletApplication {
 		SpringApplication.run(ServletApplication.class, args);
 		System.out.println("========== hello-servlet start ==========");
 	}
+
+	// @Bean
+	// ViewResolver internalResourcResolver() {
+	// 	return new InternalResourceViewResolver("/WEB-INF/views/", ".jsp");
+	// }
 
 }
