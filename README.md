@@ -10,5 +10,5 @@
 #### 📁http
 **`모든 개발자를 위한 HTTP 웹 기본 지식`**
 
-#### 📁servlet
+#### 📁servlet, 📁springmvc
 **`스프링 MVC 1편 - 백엔드 웹 개발 핵심 기술`**
