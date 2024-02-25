@@ -1,4 +1,4 @@
-package hello.springmvc.basic.requestmapping;
+package hello.springmvc.basic.request;
 
 import java.io.IOException;
 import java.util.Map;
