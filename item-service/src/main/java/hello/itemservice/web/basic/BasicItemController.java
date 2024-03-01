@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
@@ -120,8 +121,26 @@ public class BasicItemController {
   // @PostMapping("/add")
   public String addItemV5(Item item) {
     itemRepository.save(item);
+
+    // redirect에서 + item.getId() 처럼 URL에 변수를 더해서 사용하는 것은 URL 인코딩이 안되기 때문에 위험 -> RedirectAttributes사용
     return "redirect:/basic/items/" + item.getId();
   }
+
+  /**
+   * RedirectAttributes
+   */
+  @PostMapping("/add")
+  public String addItemV6(
+    Item item,
+    RedirectAttributes redirectAttributes
+  ) {
+    Item savedItem = itemRepository.save(item);
+    redirectAttributes.addAttribute("itemId", savedItem.getId());
+    redirectAttributes.addAttribute("status", true);  // 쿼리파라미터 형식으로 붙음
+
+    return "redirect:/basic/items/{itemId}";
+  }
+
 
   @GetMapping("/{itemId}/edit")
   public String editForm(
