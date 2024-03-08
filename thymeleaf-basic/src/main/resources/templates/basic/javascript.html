@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+
+<body>
+  <!-- 자바스크립트 인라인 사용 전 -->
+  <script>
+    var username = [[${user.username}]]
+    var age = [[${user.age}]]
+
+    //자바스크립트 내추럴 템플릿
+    var username2 = /*[[${user.username}]]*/ "test username"
+
+    //객체
+    var user = [[${user}]]
+  </script>
+
+  <!-- 자바스크립트 인라인 사용 후 -->
+  <script th:inline="javascript">
+    var username = /*[[${user.username}]]*/ ''
+    var age = /*[[${user.age}]]*/ 0
+
+    //자바스크립트 내추럴 템플릿
+    var username2 = /*[[${user.username}]]*/ "test username";
+
+    //객체
+    var user = /*[[${user}]]*/ null
+  </script>
+
+  <!-- 자바스크립트 인라인 each -->
+  <script th:inline="javascript">
+
+    // 인라인 루프 적용했을때 깔끔하게 처리하는 방법 찾아보기(문법 오류 안나도록)
+    [# th:each="user, stat : ${users}"]
+      var user[(${stat.count})] = [[${user}]]
+    [/]
+
+    /*[# th:each="user, stat : ${users}"]*/
+      var user[(${stat.count})] = /*[[${user}]]*/ null
+    /*[/]*/
+  </script>
+
+</body>
+
+</html>
