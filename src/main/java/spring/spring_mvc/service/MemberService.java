@@ -3,17 +3,14 @@ package spring.spring_mvc.service;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.stereotype.Service;
-
 import spring.spring_mvc.domain.Member;
 import spring.spring_mvc.repository.MemberRepository;
 
-@Service
 public class MemberService {
 
   private final MemberRepository memberRepository;
 
-  MemberService(MemberRepository memberRepository) {
+  public MemberService(MemberRepository memberRepository) {
     this.memberRepository = memberRepository;
   }
 
