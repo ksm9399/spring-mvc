@@ -1,8 +1,10 @@
 package spring.spring_mvc.order;
 
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import spring.spring_mvc.AppConfig;
 import spring.spring_mvc.member.Grade;
 import spring.spring_mvc.member.Member;
 import spring.spring_mvc.member.MemberService;
@@ -10,8 +12,18 @@ import spring.spring_mvc.member.MemberServiceImpl;
 
 public class OrderServiceTest {
 
-  MemberService memberService = new MemberServiceImpl();
-  OrderService orderService = new OrderServiceImpl();
+  // MemberService memberService = new MemberServiceImpl();
+  // OrderService orderService = new OrderServiceImpl();
+
+  MemberService memberService;
+  OrderService orderService;
+
+  @BeforeEach
+  public void beforeEach() {
+    AppConfig appConfig = new AppConfig();
+    memberService = appConfig.memberService();
+    orderService = appConfig.orderService();
+  }
 
   @Test
   void createOrder() {

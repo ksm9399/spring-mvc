@@ -2,14 +2,26 @@ package spring.spring_mvc.order;
 
 import spring.spring_mvc.discount.DiscountPolicy;
 import spring.spring_mvc.discount.FixDiscountPolicy;
+import spring.spring_mvc.discount.RateDiscountPolicy;
 import spring.spring_mvc.member.Member;
 import spring.spring_mvc.member.MemberRepository;
 import spring.spring_mvc.member.MemoryMemberRepository;
 
 public class OrderServiceImpl implements OrderService {
 
-  private final MemberRepository memberRepository = new MemoryMemberRepository();
-  private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+  private final MemberRepository memberRepository;
+  // private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+  // private final DiscountPolicy discountPolicy = new RateDiscountPolicy();
+
+  private final DiscountPolicy discountPolicy;
+
+  public OrderServiceImpl(
+    MemberRepository memberRepository,
+    DiscountPolicy discountPolicy
+  ) {
+    this.memberRepository = memberRepository;
+    this.discountPolicy = discountPolicy;
+  }
 
   @Override
   public Order createOrder(
