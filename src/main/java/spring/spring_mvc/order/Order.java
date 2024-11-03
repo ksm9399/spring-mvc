@@ -56,10 +56,10 @@ public class Order {
   public String toString() {
     return
       "Order {" +
-        "memberId =" + memberId +
-        ", itemName =" + itemName +
-        ", itemPrice =" + itemPrice +
-        ", discountPrice =" + discountPrice +
+        "memberId = " + memberId +
+        ", itemName = " + itemName +
+        ", itemPrice = " + itemPrice +
+        ", discountPrice = " + discountPrice +
       "}";
   }
 }

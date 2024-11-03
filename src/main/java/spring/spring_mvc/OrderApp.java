@@ -1,5 +1,8 @@
 package spring.spring_mvc;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import spring.spring_mvc.member.Grade;
 import spring.spring_mvc.member.Member;
 import spring.spring_mvc.member.MemberService;
@@ -14,9 +17,13 @@ public class OrderApp {
     // MemberService memberService = new MemberServiceImpl();
     // OrderService orderService = new OrderServiceImpl();
 
-    AppConfig appConfig = new AppConfig();
-    MemberService memberService = appConfig.memberService();
-    OrderService orderService = appConfig.orderService();
+    // AppConfig appConfig = new AppConfig();
+    // MemberService memberService = appConfig.memberService();
+    // OrderService orderService = appConfig.orderService();
+
+    ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+    MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
+    OrderService orderService = applicationContext.getBean("orderService", OrderService.class);
 
     Long memberId = 1L;
     Member member = new Member(memberId, "memberA", Grade.VIP);
