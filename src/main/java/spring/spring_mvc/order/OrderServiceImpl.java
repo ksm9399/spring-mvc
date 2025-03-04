@@ -1,5 +1,7 @@
 package spring.spring_mvc.order;
 
+import org.springframework.stereotype.Component;
+
 import spring.spring_mvc.discount.DiscountPolicy;
 import spring.spring_mvc.discount.FixDiscountPolicy;
 import spring.spring_mvc.discount.RateDiscountPolicy;
@@ -7,6 +9,7 @@ import spring.spring_mvc.member.Member;
 import spring.spring_mvc.member.MemberRepository;
 import spring.spring_mvc.member.MemoryMemberRepository;
 
+@Component
 public class OrderServiceImpl implements OrderService {
 
   private final MemberRepository memberRepository;
