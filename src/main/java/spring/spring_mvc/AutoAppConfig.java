@@ -1,8 +1,12 @@
 package spring.spring_mvc;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
+
+import spring.spring_mvc.member.MemberRepository;
+import spring.spring_mvc.member.MemoryMemberRepository;
 
 @Configuration
 @ComponentScan(
@@ -11,5 +15,9 @@ import org.springframework.context.annotation.FilterType;
 )
 public class AutoAppConfig {
 
-
+  // 수동 빈 등록 vs 자동 빈 등록시, 수동 빈 등록이 우선권을 가짐 - ovveride
+  @Bean(name = "memoryMemberRepository")
+  public MemberRepository memberRepository() {
+    return new MemoryMemberRepository();
+  }
 }
